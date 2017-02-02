@@ -1,9 +1,13 @@
 'use strict';
 
+const LONGUEUR_MAX = 15000;
+
 var walls;
 d3.json("data/walls.json", function(error, data) {
     walls = data;
 });
+
+var listeObjets = ["zone de conflit", "immigration", "terrorisme", "trafic", "inégalités"];
 
 function updateAnnee(val) {
     document.getElementById("affichage-annee").innerHTML = val;
@@ -11,24 +15,33 @@ function updateAnnee(val) {
     replay(generateDisplayData());
 }
 
+// Traite les données du JSON pour générer les données à afficher
 function generateDisplayData() {
 
     var annee = document.getElementById("annee").value;
     var displayData = [];
 
+    // Génération des données à afficher
     walls.forEach(function(d) {
 	  
-        if(d.annee <= annee) {
+        if(d['Date annonce'] <= annee) {
 	
-	        var found = displayData.find(function(elem) {
-	            return elem['type'] === d.type;
-	        });
-	    	  
-            if(found === undefined) {
-                displayData.push({'type': d.type, 'longueur': d.longueur});
-            } else {
-                found['longueur'] += d.longueur;
-            }
+	        listeObjets.forEach(function(obj) {
+	        
+	            if(d[obj] !== "" && d['Longueur (km)'] !== "") {
+	                var found = displayData.find(function(elem) {
+	                    return elem['type'] === obj;
+	                });
+	            	
+	            	var longueur = d['Longueur (km)'];
+	            	
+                    if(found === undefined) {
+                        displayData.push({'type': obj, 'longueur': longueur});
+                    } else {
+                        found['longueur'] += longueur;
+                    }
+                }
+            });
         }
     });
     
@@ -38,8 +51,8 @@ function generateDisplayData() {
 
 // Mike Bostock "margin conventions"
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 260 - margin.left - margin.right,
-    height = 200 - margin.top - margin.bottom;
+    width = 400 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 // D3 scales = just math
 // x is a function that transforms from "domain" (data) into "range" (usual pixels)
@@ -84,7 +97,9 @@ svg.append("g")
     .style("text-anchor", "end")
     .text("Longueur cumulée des murs (km)");
 
-replay(generateDisplayData());
+window.onload = function() {
+    replay(generateDisplayData());
+}
     
 
 function type(d) {
@@ -108,7 +123,7 @@ function draw(data) {
     // measure the domain
     // now the scales are finished and usable
     x.domain(data.map(function(d) { return d.type; }));
-    y.domain([0, d3.max(data, function(d) { return d.longueur; })]);
+    y.domain([0, LONGUEUR_MAX]);
 
     // another g element, this time to move the origin to the bottom of the svg element
     // someSelection.call(thing) is roughly equivalent to thing(someSelection[i])
