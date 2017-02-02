@@ -1,16 +1,18 @@
 # Descriptif du projet
 
-Média :
+Média : Mathias Virilli
 
-Sujet :
+Sujet : Murs et frontières
 
-Equipe :
+Equipe : La Pangée
 
 Patricipants :
 
-- AGR :
-- Polytech :  
-- SciencesCom :
+- AGR : Agathe UHLRICH, Lary MARCHAND, Marine FÉVRIER
+- Polytech : Hédy GIRAUDEAU, Pierre PÉTILLON, Qianying HUANG, Hugo 
+PIGEON
+- SciencesCom : Cyrielle VINCE, Roxane THEBAUD, Emmanuelle BINET, Paul 
+MESCUS
 
 # Installation
 
