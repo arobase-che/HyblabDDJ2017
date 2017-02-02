@@ -1,0 +1,17 @@
+[
+    {
+        "annee": 1989,
+        "type": "terrorisme",
+        "longueur": 420
+    },
+    {
+        "annee": 2005,
+        "type": "immigration",
+        "longueur": 1000
+    },
+    {
+        "annee": 2010,
+        "type": "immigration",
+        "longueur": 500
+    }
+]

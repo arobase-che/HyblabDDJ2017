@@ -4,6 +4,7 @@
 // Load usefull expressjs and nodejs objects / modules
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 
 var app = express();
 
@@ -17,3 +18,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 // server and visiting http(s)://127.0.0.1:8080/name_of_you_project/ (if on a local server)
 // or more generally: http(s)://server_name:port/name_of_you_project/
 module.exports = app;
+
+
+// Carte avec les différentes régions
+app.get('/regions', function (req, res) {
+    
+    fs.readFile(__dirname + '/public/carte-regions.html', function (error, data) {
+        res.write(data);
+        res.end();
+    });
+});
+
+// Graphique montrant l'évolution de la longueur des murs en fonction de l'année
+app.get('/mur', function (req, res) {
+
+    fs.readFile(__dirname + '/public/graphique-mur.html', function (error, data) {
+        res.write(data);
+        res.end();
+    });
+});
