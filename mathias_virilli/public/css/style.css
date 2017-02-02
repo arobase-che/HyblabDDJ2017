@@ -1,3 +1,9 @@
+body
+{
+    width: 960px;
+    margin: auto;
+}
+
 /* just a sample css rule to show that everything works */
 footer p
 {
@@ -14,9 +20,22 @@ header img{
 	height: auto;
 }
 
+svg
+{
+    display: block;
+    margin: auto;
+}
+
+#affichage-annee
+{
+    text-align: center;
+}
+
 #annee
 {
     background-color: white;
+    width: 50%;
+    margin-left: 25%;
 }
 
 
