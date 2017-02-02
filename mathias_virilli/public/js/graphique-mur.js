@@ -9,6 +9,7 @@ d3.json("data/walls.json", function(error, data) {
 
 var listeObjets = ["zone de conflit", "immigration", "terrorisme", "trafic", "inégalités"];
 
+// Met à jour la page en fonction de l'année indiquée par le slider
 function updateAnnee(val) {
     document.getElementById("affichage-annee").innerHTML = val;
     
@@ -129,15 +130,15 @@ function draw(data) {
     // someSelection.call(thing) is roughly equivalent to thing(someSelection[i])
     //   for everything in the selection\
     // the end result is g populated with text and lines!
-    svg.select('.x.axis').call(xAxis);
+    svg.select('.x.axis').transition().duration(300).call(xAxis);
 
     // same for yAxis but with more transform and a title
-    svg.select(".y.axis").call(yAxis)
+    svg.select(".y.axis").transition().duration(300).call(yAxis)
 
     // THIS IS THE ACTUAL WORK!
     var bars = svg.selectAll(".bar").data(data, function(d) { return d.type; }) // (data) is an array/iterable thing, second argument is an ID generator function
 
-    bars.exit()
+    bars.exit().transition().duration(300)
         .attr("y", y(0))
         .attr("height", height - y(0))
         .style('fill-opacity', 1e-6)
@@ -150,7 +151,7 @@ function draw(data) {
         .attr("height", height - y(0));
 
     // the "UPDATE" set:
-    bars.attr("x", function(d) { return x(d.type); }) // (d) is one item from the data array, x is the scale object from above
+    bars.transition().duration(300).attr("x", function(d) { return x(d.type); }) // (d) is one item from the data array, x is the scale object from above
         .attr("width", x.rangeBand()) // constant, so no callback function(d) here
         .attr("y", function(d) {  return y(d.longueur); })
         .attr("height", function(d) { return height - y(d.longueur); }); // flip the height, because y's domain is bottom up, but SVG renders top down
