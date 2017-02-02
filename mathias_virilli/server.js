@@ -37,3 +37,12 @@ app.get('/mur', function (req, res) {
         res.end();
     });
 });
+
+// Carte avec tous les murs
+app.get('/carte-murs', function (req, res) {
+
+    fs.readFile(__dirname + '/public/carte-murs.html', function (error, data) {
+        res.write(data);
+        res.end();
+    });
+});
